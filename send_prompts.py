@@ -53,6 +53,9 @@ class PromptProcessor:
             response_file = self.responses_dir / f"{Path(file_name).stem}_response.md"
             with open(response_file, 'w', encoding='utf-8') as file:
                 file.write(response)
+            total_response_file = self.responses_dir / "total_response.md"
+            with open(total_response_file, 'a', encoding='utf-8') as file:
+                file.write(f"{response}\n\n")
             print(f"Response for file {i}/{total_files} saved to {response_file}")
 
         print("All files processed successfully.")
