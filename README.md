@@ -11,7 +11,7 @@ EpubSummarizer is a tool designed to extract content from EPUB files, prepare th
 ## Prerequisites
 
 - Python 3.x
-- OpenAI API Key
+- OpenAI API Key, or have access to an Ollama instance
 
 ## Installation
 
@@ -28,10 +28,12 @@ EpubSummarizer is a tool designed to extract content from EPUB files, prepare th
    pip install -r requirements.txt
    ```
 
-3. Create a `.env` file in the project root directory to store your OpenAI API key:
+3. If you want to use OpenAI, create a `.env` file in the project root directory to store your OpenAI API key:
    ```sh
    echo OPENAI_API_KEY=your-api-key > .env
    ```
+
+4. If you want to use a local model like ollama, follow its instruction to set up an ollama instance. Get the URL.
 
 ## Usage
 
@@ -54,13 +56,14 @@ The extracted and prepared files will be saved in the `books` directory.
 
 ### Summarizing Chapters
 
-To summarize the chapters of the book, use the `send_prompts.py` script. This script reads the extracted and prepared text files, sends them to the OpenAI API, and saves the responses in the `responses` folder.
+To summarize the chapters of the book, use the `send_prompts.py` script. This script reads the extracted and prepared text files, sends them to the model, and saves the responses in the `responses` folder.
 
 1. Make sure your `base_prompt.txt` is in the same folder as the `send_prompts.py` script.
 
 2. Run the summarization process:
    ```sh
-   python send_prompts.py path/to/prepared/book/folder
+   python send_prompts.py --model_name=llama3.2 --model_url=http://ollama_host:11434/v1 path/to/prepared/book/folder
+   python send_prompts.py --model_name=gpt4o-mini path/to/prepared/book/folder
    ```
 
 The summaries will be saved in the `responses` directory within the specified book folder.
